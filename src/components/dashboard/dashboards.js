@@ -107,7 +107,7 @@ var navigate = useNavigate()
 
     <div>
   <div key={index} class="row">
-    <h2>{item.movie.name}</h2>
+    <h1 style={{fontSize:'1.5rem' ,fontWeight:'bold'}}>{item.movie.name}</h1>
 
     <div  class="row__posters">
 
