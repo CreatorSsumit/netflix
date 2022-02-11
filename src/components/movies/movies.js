@@ -16,29 +16,22 @@ useEffect(() => {
 
   const [data, setdata] = useState('')
 
-  const [state, setstate] = useState([]);
+  const [state, setstate] = useState({});
   const [reviewlist, setreviewlist] = useState([])
 
 
   const handelchanges = (e)=>{
 
     var value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-
-    
-
-
-    setstate({...state,[e.target.name]:value});
-
-   
-
-  }
+        setstate({...state,[e.target.name]:value});
+    }
 
 
   
   const handelsubmit = (e) =>{
     e.preventDefault();
-    setreviewlist([...reviewlist,{...state}])
-    
+    setreviewlist([...reviewlist,{...state}]);
+    setstate({})
   }
 
 
@@ -117,14 +110,14 @@ useEffect(() => {
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
         First Name
       </label>
-      <input name='firstname' onChange={(e)=>handelchanges(e)}  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" />
+      <input value={state.firstname ? state.firstname : ''} name='firstname' onChange={(e)=>handelchanges(e)}  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" />
 
     </div>
     <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         Last Name
       </label>
-      <input name='lastname'  onChange={(e)=>handelchanges(e)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe" />
+      <input value={state.lastname ? state.lastname : ''} name='lastname'  onChange={(e)=>handelchanges(e)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe" />
     </div>
   </div>
 
@@ -132,7 +125,7 @@ useEffect(() => {
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
       profession
       </label>
-      <input name='profession'  onChange={(e)=>handelchanges(e)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe" />
+      <input value={state.profession ? state.profession : ''} name='profession'  onChange={(e)=>handelchanges(e)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe" />
     </div>
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full px-3">
@@ -165,7 +158,7 @@ useEffect(() => {
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
       City
       </label>
-      <input name='city' onChange={(e)=>handelchanges(e)}  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" />
+      <input value={state.city ? state.city : ''} name='city' onChange={(e)=>handelchanges(e)}  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" />
 
     </div>
     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -173,7 +166,7 @@ useEffect(() => {
         State
       </label>
       <div class="relative">
-        <select name='state' cla onChange={(e)=>handelchanges(e)} ss="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+        <select name='state' value={state.state ? state.state : ''} onChange={(e)=>handelchanges(e)} ss="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
         <option selected>Select options</option>
           <option>New Mexico</option>
           <option>Missouri</option>
@@ -184,11 +177,11 @@ useEffect(() => {
         </div>
       </div>
     </div>
-    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+    <div class="w-full  px-3 mb-6 ">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
        Give Review
       </label>
-      <input name='review'  onChange={(e)=>handelchanges(e)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
+      <input value={state.review ? state.review : ''} name='review'  onChange={(e)=>handelchanges(e)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
     </div>
   </div>
 
@@ -204,10 +197,11 @@ useEffect(() => {
           data-bs-dismiss="modal">
           Close
         </button>
-        <button type="submit" data-bs-dismiss="modal"
-          class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-          Save changes
-        </button>
+        {(state.firstname && state.lastname && state.city && state.review && state.state && state.profession) ? <button  type="submit" data-bs-dismiss="modal"
+          class="inline-block  px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+          Save changes 
+        </button>  : ''}
+      
       </div>
     </div>
   </div>
