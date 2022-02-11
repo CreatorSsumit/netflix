@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React,{useState,useEffect} from 'react';
 import {BrowserRouter,Link,NavLink,Route,Switch ,useNavigate } from "react-router-dom"
 import './dashboard.css';
@@ -60,7 +61,24 @@ var movielist = [
 
 function App() {
 
-var navigate = useNavigate()
+var navigate = useNavigate();
+
+
+
+const fetchtime = ()=>{
+ 
+    
+    axios.get("https://api.ipdata.co/?api-key=53635f78966edc14b4428a9e1317327cb7909ba9a88df7bb6d642f23").then(res=>{
+
+      axios.get(`https://www.timeapi.io/api/Time/current/ip?ipAddress=${res.data.ip}`).then(res=>{
+      console.log(res.data.time)
+    })
+
+
+   })
+  // .finally(fetchtime,1000)
+}
+
 
 
 
@@ -68,8 +86,9 @@ var navigate = useNavigate()
 
  
  useEffect(() => {
-  setdata(movielist)
- }, [])
+  setdata(movielist);
+  fetchtime();
+ }, [fetchtime()])
  
 
 
