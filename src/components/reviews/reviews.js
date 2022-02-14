@@ -30,9 +30,10 @@ function Reviews(props) {
     <div class="flex flex-wrap -m-4">
 
       {state? state.reverse().map((itm,index)=>{
+       
         return(
 
-          <section style={{width:'100%'}} class="text-gray-600 body-font">
+          <section key={index} style={{width:'100%'}} class="text-gray-600 body-font">
   <div class="container px-5 py-2 mx-auto">
     
     <div class="flex flex-wrap -m-4">
@@ -43,9 +44,9 @@ function Reviews(props) {
           </svg>
           <p class="leading-relaxed mb-6">{itm.review}</p>
           <a class="inline-flex items-center">
-            <img alt="testimonial" src={data.url} class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center" />
+            <img alt="testimonial" src={itm.url} class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center" />
             <span class="flex-grow flex flex-col pl-4">
-              <span class="title-font font-medium text-gray-900">{itm.firstname}{itm.lastname }</span>
+              <span class="title-font font-medium text-gray-900">{itm.firstname}&nbsp;{itm.lastname }</span>
               <span class="text-gray-500 text-sm">{itm.profession}</span>
             </span>
           </a>

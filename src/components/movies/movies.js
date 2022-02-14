@@ -2,6 +2,10 @@ import React,{useState,useEffect} from 'react';
 import {useLocation,useNavigate} from "react-router-dom";
 import "./movies.css";
 import Reviews from '../reviews/reviews';
+import axios from 'axios';
+
+
+var resurl = 'http://localhost:3004/allreviews';
 
 function Movies(props) {
 
@@ -9,8 +13,15 @@ var location = useLocation();
 var navigate = useNavigate();
 
 useEffect(() => {
- setdata(location.state.data)
-}, [location])
+ setdata(location.state.data);
+ defaultfetch();
+ window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: 'smooth', 
+});
+}, [location,location.pathname])
+
 
 
 
@@ -30,11 +41,29 @@ useEffect(() => {
   
   const handelsubmit = (e) =>{
     e.preventDefault();
-    setreviewlist([...reviewlist,{...state}]);
-    setstate({})
+    fetchlist();
+    setstate({});
   }
 
+  const defaultfetch = ()=>{
+    axios.get(resurl).then(res=>{
+      setreviewlist([...res.data]);
+  });
+  }
+  
 
+  const fetchlist = () =>{
+
+   axios.post(resurl,{...state,...data}).then(e=>{
+      axios.get(resurl).then(res=>{
+            setreviewlist([...res.data]);
+      });
+     
+    }).catch(err=>{
+      console.log('err',err)
+     });
+  }
+  
   return (
     <>
     <section class="text-gray-600 body-font  bg-dark">
@@ -167,7 +196,7 @@ useEffect(() => {
       </label>
       <div class="relative">
         <select name='state' value={state.state ? state.state : ''} onChange={(e)=>handelchanges(e)} ss="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-        <option selected>Select options</option>
+        <option defaultValue={'select'}>Select options</option>
           <option>New Mexico</option>
           <option>Missouri</option>
           <option>Texas</option>
