@@ -1,17 +1,21 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect} from 'react';
+import { connect } from 'react-redux';
+import {useLocation} from "react-router-dom";
+
 
 function Reviews(props) {
 
 
   const [state, setstate] = useState('');
-  const [data, setdata] = useState('')
+  const [data, setdata] = useState('');
+  const { pathname } = useLocation();
+   
 
   useEffect(() => {
 
     setstate(props.reviewlist);
     setdata(props.data);
-
-   
+ 
   
   }, [props])
   
@@ -64,7 +68,17 @@ function Reviews(props) {
     </div>
   </div>
 </section>
+
+
   )
 }
 
-export default Reviews
+const mapStateToProps = (state) => {
+  console.log(state.alldata.profile,"statewala")
+  return {
+    reviewlist:state.alldata.profile.reviewslist,
+    data:state.alldata.profile.data
+  }
+}
+
+export default connect(mapStateToProps,null)(Reviews)

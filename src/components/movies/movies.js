@@ -3,6 +3,8 @@ import {useLocation,useNavigate} from "react-router-dom";
 import "./movies.css";
 import Reviews from '../reviews/reviews';
 import axios from 'axios';
+import {connect} from "react-redux";
+import {senddata } from "../actions/index"
 
 
 var resurl = 'http://localhost:3004/allreviews';
@@ -12,23 +14,26 @@ function Movies(props) {
 var location = useLocation();
 var navigate = useNavigate();
 
+
+
+const [data, setdata] = useState('')
+
+const [state, setstate] = useState({});
+const [reviewlist, setreviewlist] = useState([])
+
+
+
 useEffect(() => {
- setdata(location.state.data);
- defaultfetch();
- window.scrollTo({
+   
+
+  setdata(location.state.data);
+   window.scrollTo({
   top: 0,
   left: 0,
   behavior: 'smooth', 
 });
-}, [location,location.pathname])
-
-
-
-
-  const [data, setdata] = useState('')
-
-  const [state, setstate] = useState({});
-  const [reviewlist, setreviewlist] = useState([])
+defaultfetch();
+}, [location,location.pathname,data])
 
 
   const handelchanges = (e)=>{
@@ -42,12 +47,18 @@ useEffect(() => {
   const handelsubmit = (e) =>{
     e.preventDefault();
     fetchlist();
+    
     setstate({});
   }
 
   const defaultfetch = ()=>{
+
     axios.get(resurl).then(res=>{
       setreviewlist([...res.data]);
+      
+     
+        props.senddata([...res.data], data?data:'')
+      
   });
   }
   
@@ -56,7 +67,8 @@ useEffect(() => {
 
    axios.post(resurl,{...state,...data}).then(e=>{
       axios.get(resurl).then(res=>{
-            setreviewlist([...res.data]);
+          setreviewlist([...res.data]);
+          props.senddata([...res.data], data?data:'')
       });
      
     }).catch(err=>{
@@ -111,7 +123,7 @@ useEffect(() => {
 </section>
 
 
-<Reviews reviewlist={reviewlist} data={data} />
+<Reviews  />
 
 
 
@@ -242,4 +254,15 @@ useEffect(() => {
   )
 }
 
-export default Movies
+
+function mapStateToProps(state) {
+  return {
+      state: state
+  }
+}
+
+const mapDispatchToProps = ({
+  senddata: senddata
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Movies);

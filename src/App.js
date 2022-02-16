@@ -1,7 +1,7 @@
 import React from 'react';
 import Dashboard from "./components/dashboard/dashboards";
 import Movies from "./components/movies/movies"
-import { BrowserRouter, Route,Routes as Switch , Redirect } from 'react-router-dom';
+import { BrowserRouter, Route,Routes as Switch  } from 'react-router-dom';
 
 
 function App() {
