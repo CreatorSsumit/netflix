@@ -7,7 +7,6 @@ function Reviews(props) {
 
 
   const { pathname } = useLocation();
-   
 
 
   return (
