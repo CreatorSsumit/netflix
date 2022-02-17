@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
-import {BrowserRouter,Link,NavLink,Route,Switch ,useNavigate } from "react-router-dom"
+import {useNavigate } from "react-router-dom"
 import './dashboard.css';
 
 var dataurl = "http://localhost:3004/allmovies";
+
+
 
 function App() {
 
@@ -86,7 +88,7 @@ const fetchtime = ()=>{
 
  
     <img onClick={()=>navigate(`/movies/${index}`, {state: {data:item}})} key={index} class="row__poster row__posterLarge" src={item.url} alt="" />
-
+   
   )
 })}
     

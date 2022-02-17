@@ -6,21 +6,9 @@ import {useLocation} from "react-router-dom";
 function Reviews(props) {
 
 
-  const [state, setstate] = useState('');
-  const [data, setdata] = useState('');
   const { pathname } = useLocation();
    
 
-  useEffect(() => {
-
-    setstate(props.reviewlist);
-    setdata(props.data);
- 
-  
-  }, [props])
-  
-
- 
 
   return (
 
@@ -33,7 +21,7 @@ function Reviews(props) {
     </div>
     <div class="flex flex-wrap -m-4">
 
-      {state? state.reverse().map((itm,index)=>{
+      {props.alldata? props.alldata.reviewslist.reverse().map((itm,index)=>{
        
         return(
 
@@ -62,7 +50,7 @@ function Reviews(props) {
 </section>
  
         )
-      }) :''}
+      }) :<h5>dd</h5>}
      
     
     </div>
@@ -74,10 +62,9 @@ function Reviews(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.alldata.profile,"statewala")
+
   return {
-    reviewlist:state.alldata.profile.reviewslist,
-    data:state.alldata.profile.data
+    alldata:state.alldata.profile
   }
 }
 

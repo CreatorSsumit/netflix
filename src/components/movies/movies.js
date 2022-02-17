@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext, createContext} from 'react';
 import {useLocation,useNavigate} from "react-router-dom";
 import "./movies.css";
 import Reviews from '../reviews/reviews';
@@ -9,10 +9,13 @@ import {senddata } from "../actions/index"
 
 var resurl = 'http://localhost:3004/allreviews';
 
+
+
 function Movies(props) {
 
 var location = useLocation();
 var navigate = useNavigate();
+
 
 
 
@@ -33,6 +36,7 @@ useEffect(() => {
   behavior: 'smooth', 
 });
 defaultfetch();
+
 }, [location,location.pathname,data])
 
 
@@ -225,9 +229,6 @@ defaultfetch();
       <input value={state.review ? state.review : ''} name='review'  onChange={(e)=>handelchanges(e)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
     </div>
   </div>
-
-
-
 
 
       </div>
